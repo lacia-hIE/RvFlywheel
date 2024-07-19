@@ -61,8 +61,8 @@ class InstanceContext:
             res = InstanceContext()
             res.instances = ChainMap({}, self.instances, INSTANCE_CONTEXT_VAR.get().instances)
 
-            with res.scope(inherit=False):
-                yield self
+            with res.scope(inherit=False) as ctx:
+                yield ctx
         else:
             token = INSTANCE_CONTEXT_VAR.set(self)
             try:
